@@ -1,6 +1,8 @@
 package com.example.contollers;
 
 
+import com.example.exception.HappinessOverflowException;
+import com.example.exception.IncorrectCountException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,41 +35,41 @@ public class CatsInteractionController {
         return Map.of("happiness", happiness);
     }
 
-//    @GetMapping("/feed")
-//    public Map<String, Integer> feed() {
-//        throw new NegativeCountException(HttpStatus.NOT_IMPLEMENTED, "Метод /feed ещё не реализован.");
-//    }
-//
-//    @PutMapping("/pet")
-//    public Map<String, String> pet(@RequestParam(required = false) final Integer count,
-//                                   @RequestParam(required = false) final String user) {
-//        if (owner == null) {
-//            throw new IncorrectParameterException("Необходимо установить параметр owner.");
-//        }
-//        if (!user.equals(owner)) {
-//            throw new UnauthorizedUserException(user, owner);
-//        }
-//        if (count == null) {
-//            throw new IncorrectCountException("Параметр count равен null.");
-//        }
-//        if (count <= 0) {
-//            throw new IncorrectCountException("Параметр count имеет отрицательное значение.");
-//        }
-//
-//        happiness += count;
-//        checkHappiness();
-//        return Map.of("talk", "Муррр. ".repeat(count));
-//    }
-//
-//    private void checkHappiness() {
-//        if (happiness > MAX_COUNT_OF_HAPPINESS_LEVEL) {
-//            throw new HappinessOverflowException(happiness);
-//        }
-//    }
-//
-//    private void checkOwner(String owner) {
-//        if (owner == null || owner.isBlank()) {
-//            throw new IncorrectParameterException("Параметр newOwner равен null");
-//        }
-//    }
+    @GetMapping("/feed")
+    public Map<String, Integer> feed() {
+        throw new NegativeCountException(HttpStatus.NOT_IMPLEMENTED, "Метод /feed ещё не реализован.");
+    }
+
+    @PutMapping("/pet")
+    public Map<String, String> pet(@RequestParam(required = false) final Integer count,
+                                   @RequestParam(required = false) final String user) {
+        if (owner == null) {
+            throw new IncorrectParameterException("Необходимо установить параметр owner.");
+        }
+        if (!user.equals(owner)) {
+            throw new UnauthorizedUserException(user, owner);
+        }
+        if (count == null) {
+            throw new IncorrectCountException("Параметр count равен null.");
+        }
+        if (count <= 0) {
+            throw new IncorrectCountException("Параметр count имеет отрицательное значение.");
+        }
+
+        happiness += count;
+        checkHappiness();
+        return Map.of("talk", "Муррр. ".repeat(count));
+    }
+
+    private void checkHappiness() {
+        if (happiness > MAX_COUNT_OF_HAPPINESS_LEVEL) {
+            throw new HappinessOverflowException(happiness);
+        }
+    }
+
+    private void checkOwner(String owner) {
+        if (owner == null || owner.isBlank()) {
+            throw new IncorrectParameterException("Параметр newOwner равен null");
+        }
+    }
 }
